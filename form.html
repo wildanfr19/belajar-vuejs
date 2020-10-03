@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Belajar Vue</title>
+	<style>
+		form {
+			border: 1px solid #ddd;
+			padding:5px;
+			width:225px;
+			background: #efefef; }
+			label{
+				display: block;
+				margin-top: 5px; }
+				input, textarea, select, option {
+					min-width: 200px; }
+				</style>
+			</head>
+			<body>
+				<div id="app">
+					<form ref="formBook" @submit="submitForm($event)" action="http://example.com/add-product"
+					method="post">
+
+					<p v-if="errors.length">
+						<ul>
+							<b>Please correct the following error(s):</b>
+							<li v-for="error in errors">{{ error }}</li>
+						</ul>
+					</p>
+
+					<label>Title:</label>
+					<input name="title" ref="title" type="text" v-model="title">
+					<label>Description:</label>
+					<textarea name="description" ref="description" v-model="description">
+					</textarea>
+
+					<label>Authors:</label>
+					<input name="authors" ref="authors" type="text" v-model="authors">
+
+					<label>Price:</label>
+					<input name="price" ref="price" type="number" v-model.number="price">
+
+					<label>Categories:</label>
+					<select name="categories" ref="categories" v-model="categories"
+					multiple>
+					<option v-for="option in options" :value="option.value">
+						{{ option.text }}
+					</option>
+				</select>
+
+				<label></label>
+				<input type="submit" value="Submit">
+			</div>
+		</body>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					title: 'Google Glass with VueJS',
+					description: 'Control Google Glass with VueJS',
+					authors: 'Hafid Mukhlasin',
+					price: 75000,
+					categories: [],
+					options: [
+					{ text: 'Graphics Programming', value: '01' },
+					{ text: 'Mobile Application Development', value: '02' },
+					{ text: 'Virtual and Augmented Reality', value: '03' }
+					],
+					errors: []
+				},
+				methods: {
+					submitForm(event){
+						this.errors = []
+						if (this.title < 3) {
+							this.errors.push('Title minimal 3 Karakter')
+							this.$refs.title.select()
+						} else if(this.description.length > 500){
+							this.errors.push('Description maximal 500 Karakter')
+							this.$refs.description.select()
+						} else if (this.authors.length < 3 ){						
+							this.errors.push('Authors minimal 3 Karakter')
+							this.$refs.authors.select()
+						} else if(this.price < 0){
+							this.errors.push('Price tidak boleh minus!')
+							this.$refs.price.select()
+						} else if(this.categories.length === 0){
+							this.errors.push('Pilih minimal 1 categories')
+							this.$refs.categories.select()
+						} 
+						if (error === 0) {
+							alert('Terima kasih telah mengisi data dengan benar')
+						}
+						event.preventDefault()
+					}
+					
+				}
+			})
+		</script>
+		</html>

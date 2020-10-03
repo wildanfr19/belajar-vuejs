@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id="app1">
+		<h1>Objek Vue 1</h1>
+		<component-a></component-a>
+		<component-b></component-b>
+	</div> <div id="app2">
+		<h1>Objek Vue 2</h1>
+		<component-a></component-a>
+		<component-c></component-c>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script type="text/javascript">
+	Vue.component('component-a', { 
+		template: '<p>Component A</p>'
+	})
+	Vue.component('component-b', { 
+		template: '<p>Component B</p>'
+	})
+	Vue.component('component-c', { 
+		template: '<p>Component C</p>'
+	})
+	new Vue({ el: '#app1' })
+	new Vue({ el: '#app2' })
+</script>
+</html>
